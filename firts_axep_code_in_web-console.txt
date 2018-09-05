@@ -1,0 +1,7 @@
+set<Id> myIds = new set<id>();
+System.debug('****** IDs' + myIds);
+myIds.add('0011t000003ie62');
+System.debug('****** IDs' + myIds);
+
+list<Account> accuont = [select id, Website from Account where id IN :myIds];
+System.debug('****** IDs' + accuont);
