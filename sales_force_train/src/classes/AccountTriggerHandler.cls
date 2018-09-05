@@ -15,6 +15,9 @@ public class AccountTriggerHandler {
 	// On Before Insert 
 	//   
     public void OnBeforeInsert(list<Account> lstNew) { 
+    	for(Account acc: lstNew ) {
+    		acc.Website = 'test';
+    	}
     } 
 	//
 	// On After Insert 
