@@ -15,9 +15,6 @@ public class AccountTriggerHandler {
 	// On Before Insert 
 	//   
     public void OnBeforeInsert(list<Account> lstNew) { 
-    	for(Account acc: lstNew ) {
-    		acc.Website = 'test';
-    	}
     } 
 	//
 	// On After Insert 
@@ -33,6 +30,30 @@ public class AccountTriggerHandler {
 	// On After Update
 	//
     public void OnAfterUpdate(map<id, Account> mapOld, map<id, Account> mapNew) {
+    	//
+    	// Use a set to get Ids from Accounts for Contacts and Opportunities
+    	//
+    	set<Id> myContactIds = new set<Id>();
+    	set<Id> myAccIds = mapNew.keySet();
+    	
+    	list<Contact> myLstContacts = [select id, Name, AccountId, Account_Site__c from Contact where AccountId IN :myAccIds];
+    	
+    	Boolean needToUpdateContacts = False;
+    	
+    	for(Contact con: myLstContacts) {
+    		if(con.AccountId != null) {
+    			con.Account_Site__c = mapNew.get(con.AccountId).Site;
+    			needToUpdateContacts = True;
+    		}
+    	 
+    	}
+    	   	
+	   	if (needToUpdateContacts) {
+    		update myLstContacts;
+    	}
+    	
+    	System.debug('**************contacts' + myLstContacts);
+    
     }
 	//
 	// On Before Delete 
@@ -49,4 +70,5 @@ public class AccountTriggerHandler {
 	//
     public void OnUndelete(list<Account> lstNew) {
     }
+    
 }
