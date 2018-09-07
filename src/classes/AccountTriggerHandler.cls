@@ -30,10 +30,7 @@ public class AccountTriggerHandler {
 	// On After Update
 	//
     public void OnAfterUpdate(map<id, Account> mapOld, map<id, Account> mapNew) {
-    	//
-    	// Use a set to get Ids from Accounts for Contacts and Opportunities
-    	//
-    	set<Id> myContactIds = new set<Id>();
+
     	set<Id> myAccIds = mapNew.keySet();
     	
     	list<Contact> myLstContacts = [select id, Name, AccountId, Account_Site__c from Contact where AccountId IN :myAccIds];

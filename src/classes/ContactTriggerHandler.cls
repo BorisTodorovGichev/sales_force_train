@@ -37,8 +37,6 @@ public class ContactTriggerHandler {
     	map<Id, Account> accountMap = new map<Id, Account>();
     	list<Contact> updatedContacts = new list<Contact>();
 
-    	list<Contact> myLstContacts = mapNew.values();
-
     	for(Contact con: mapNew.values()) {
     		if(con.AccountId != null) {
     			accountIds.add(con.AccountId);
@@ -58,9 +56,9 @@ public class ContactTriggerHandler {
     		}
     	}
 
-    	if (updatedContacts.size() > 0) {
-    		update updatedContacts;
-    	}
+//    	if (updatedContacts.size() > 0) {
+//    		update updatedContacts;
+//    	}
 
     	System.debug('*********accountIDs' + accountIds);
     	System.debug('*********accountMap' + accountMap);
