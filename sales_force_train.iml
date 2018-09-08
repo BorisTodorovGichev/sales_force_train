@@ -552,6 +552,10 @@
                             <option name="name" value="EmailManager" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="OpportunityTriggerHandler" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -2041,6 +2045,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="ContactTrigger" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="OpportunityTrigger" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>
