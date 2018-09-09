@@ -553,7 +553,7 @@
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="opportunityTriggerHandler" />
+                            <option name="name" value="OpportunityTriggerHandler" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>

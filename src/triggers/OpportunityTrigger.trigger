@@ -1,6 +1,6 @@
 trigger OpportunityTrigger on Opportunity (after delete, after insert, after undelete, after update,
         before delete, before insert, before update) {
-    opportunityTriggerHandler handler = new opportunityTriggerHandler(Trigger.isExecuting, Trigger.size);
+    OpportunityTriggerHandler handler = new OpportunityTriggerHandler(Trigger.isExecuting, Trigger.size);
     //
     // Before Insert - new record(s) being created
     //

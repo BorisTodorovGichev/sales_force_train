@@ -2,20 +2,20 @@ global class AccountLoader implements Database.Batchable<sObject>, Database.Stat
     //
     // query string that is set in the ExampleScheduler (and ExampleController if one is created)
     //
-    public string query;
+    public String query;
     //
     // Database.executeBatch() in ExampleScheduler call this start method
     //
-    global database.querylocator start(Database.BatchableContext BC) {
+    global database.QueryLocator start(Database.BatchableContext BC) {
         return Database.getQueryLocator(query);
     }
     //
     // execute method is called by database.queryLocater -- the number of executions is the total number of
     // records returned from query divided by the number of records to be done in each batch
     //
-    global void execute(Database.BatchableContext BC, List<sObject> scope) {
-        list<Account> myLstAccts = scope;
-        list<Account> myUpdatedAccounts = new list<Account>();
+    global void execute(Database.BatchableContext BC, List<SObject> scope) {
+        List<Account> myLstAccts = scope;
+        List<Account> myUpdatedAccounts = new List<Account>();
 
         for (Account x : myLstAccts) {
             x.Account_Site_2__c = x.Site;

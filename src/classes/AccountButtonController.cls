@@ -1,11 +1,11 @@
 public class AccountButtonController {
-    public ApexPages.standardcontroller Controller {get;set;}
+    public ApexPages.StandardController Controller {get;set;}
 
     public AccountButtonController(ApexPages.StandardController stdController) {
         Controller = stdController;
     }
     public PageReference startBatch() {
-        string myId = ApexPages.currentPage().getParameters().get('id');
+        String myId = ApexPages.currentPage().getParameters().get('id');
         //
         // create a loader class and instantiate it
         // define "query" in loader class
@@ -15,14 +15,14 @@ public class AccountButtonController {
         // set the query string for the SOQL query
         //
         myLoader.query = 'select Id, Site, Website from Account';
-        system.debug('**************** myLoader.query: '+myLoader.query);
+        System.debug('**************** myLoader.query: '+myLoader.query);
         //
         // finally, call Database.executeBatch() to start the batch process executing
         // myLoader - instantiation of the batch loader
         // myBatchSize - the number of records to process in each batch
         //
-        integer myBatchSize = 2;
-        ID batchprocessid = Database.executeBatch(myLoader,myBatchSize);
+        Integer myBatchSize = 2;
+        Id batchprocessid = Database.executeBatch(myLoader,myBatchSize);
         //
         // return the user to the current page where the button was pressed
         //

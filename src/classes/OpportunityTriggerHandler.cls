@@ -1,4 +1,4 @@
-public class opportunityTriggerHandler {
+public class OpportunityTriggerHandler {
 	//
 	// custom trigger handler setup to handler all triggers received on contact object
 	//
@@ -7,7 +7,7 @@ public class opportunityTriggerHandler {
 	//
 	// constructor
 	//
-    public opportunityTriggerHandler(Boolean isExecuting, Integer size) {
+    public OpportunityTriggerHandler(Boolean isExecuting, Integer size) {
         myIsExecuting = isExecuting;
         BatchSize = size;
     }
