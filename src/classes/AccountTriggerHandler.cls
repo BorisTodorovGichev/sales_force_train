@@ -33,9 +33,7 @@ public class AccountTriggerHandler {
 	// On After Update
 	//
     public void OnAfterUpdate(Map<Id, Account> mapOld, Map<Id, Account> mapNew) {
-
         updateAccountsContactSites(mapNew);
-
     }
 	//
 	// On Before Delete
@@ -113,8 +111,6 @@ public class AccountTriggerHandler {
                 messages.add(message);
             }
 
-            System.debug('************ managers' + managerUsers);
-
             EmailManager.sendMail(addresses, subjects, messages);
             System.debug('************ sending mails' + messages);
         }
@@ -125,20 +121,13 @@ public class AccountTriggerHandler {
 
         Set<Id> myAccIds = mapNew.keySet();
 
-        List<Contact> myLstContacts = [
-                SELECT
-                        Id, Name, AccountId, Account_Site__c
-                FROM
-                        Contact
-                WHERE
-                        AccountId IN :myAccIds
-        ];
+        List<Contact> myLstContacts = [SELECT Id, Name, AccountId, Site_From_Acc__c FROM Contact WHERE AccountId IN :myAccIds];
 
         List<Contact> contactsForUpdate = new List<Contact>();
 
         for(Contact con: myLstContacts) {
             if(con.AccountId != null) {
-                con.Account_Site__c = mapNew.get(con.AccountId).Site;
+                con.Site_From_Acc__c = mapNew.get(con.AccountId).Site;
                 contactsForUpdate.add(con);
             }
         }

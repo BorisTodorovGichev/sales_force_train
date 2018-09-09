@@ -14,7 +14,7 @@ Global class AccountScheduler implements Schedulable {
         // myLoader - instantiation of the batch loader
         // myBatchSize - the number of records to process in each batch
         //
-        integer myBatchSize = 2;
-        ID batchprocessid = Database.executeBatch(myLoader,myBatchSize);
+        Integer myBatchSize = 2;
+        Id batchprocessid = Database.executeBatch(myLoader,myBatchSize);
     }
 }
