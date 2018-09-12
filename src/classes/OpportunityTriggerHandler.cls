@@ -125,45 +125,47 @@ public class OpportunityTriggerHandler {
 
 		System.debug('newAcc' +connected);
 
-		for (Account account : connected.values()) {
-			Decimal newRevenue = opportunityWithConnectedAccountMap.get(account.Id).ExpectedRevenue;
+		for (Account newConAccount : connected.values()) {
+			Double newRevenue = opportunityWithConnectedAccountMap.get(newConAccount.Id).ExpectedRevenue;
+			newRevenue = newRevenue == null ? 0 : newRevenue ;
 
 			System.debug('newRevenue' +newRevenue);
 
-			if (account.Revenue_From_Opp__c == null) {
-				account.Revenue_From_Opp__c = 0;
-			}
+			newConAccount.Revenue_From_Opp__c = newConAccount.Revenue_From_Opp__c == null ? 0 : newConAccount.Revenue_From_Opp__c;
 
-			account.Revenue_From_Opp__c += newRevenue;
-			updatedAccounts.add(account);
+			newConAccount.Revenue_From_Opp__c += newRevenue;
+			updatedAccounts.add(newConAccount);
 		}
 
-		for (Account account : revenueChange.values()) {
-			Opportunity oppNew = opportunityMapRevenueChange.get(account.Id);
+		for (Account revChangeAccount : revenueChange.values()) {
+			Opportunity oppNew = opportunityMapRevenueChange.get(revChangeAccount.Id);
 
-			Decimal newRevenue = oppNew.ExpectedRevenue;
-			Decimal oldRevenue = mapOld.get(oppNew.Id).ExpectedRevenue;
+			Double newRevenue = oppNew.ExpectedRevenue == null ? 0  : oppNew.ExpectedRevenue;
+			Double oldRevenue = mapOld.get(oppNew.Id).ExpectedRevenue == null ?  0 : mapOld.get(oppNew.Id).ExpectedRevenue ;
 
-			if (account.Revenue_From_Opp__c == null) {
-				account.Revenue_From_Opp__c = 0;
-			}
+			System.debug(revChangeAccount);
 
-			account.Revenue_From_Opp__c += (newRevenue - oldRevenue);
-			updatedAccounts.add(account);
+			revChangeAccount.Revenue_From_Opp__c = revChangeAccount.Revenue_From_Opp__c == null ? 0 : revChangeAccount.Revenue_From_Opp__c;
+
+			System.debug(newRevenue);
+			System.debug(oldRevenue);
+			System.debug(revChangeAccount.Revenue_From_Opp__c);
+
+
+			revChangeAccount.Revenue_From_Opp__c = revChangeAccount.Revenue_From_Opp__c + (newRevenue - oldRevenue);
+			updatedAccounts.add(revChangeAccount);
 		}
 
-		for (Account account : disconnected.values()) {
-
-			Opportunity oppNew = opportunityWithDisconnectedAccountMap.get(account.Id);
+		for (Account disconnectedAccount : disconnected.values()) {
+			Opportunity oppNew = opportunityWithDisconnectedAccountMap.get(disconnectedAccount.Id);
 
 			Decimal oldRevenue = mapOld.get(oppNew.Id).ExpectedRevenue;
 
-			if (account.Revenue_From_Opp__c == null) {
-				account.Revenue_From_Opp__c = 0;
-			}
+			disconnectedAccount.Revenue_From_Opp__c = disconnectedAccount.Revenue_From_Opp__c == null ? 0 : disconnectedAccount.Revenue_From_Opp__c;
 
-			account.Revenue_From_Opp__c -= (oldRevenue);
-			updatedAccounts.add(account);
+
+			disconnectedAccount.Revenue_From_Opp__c -= (oldRevenue);
+			updatedAccounts.add(disconnectedAccount);
 		}
 
 		if (updatedAccounts.size() > 0) {
@@ -191,9 +193,7 @@ public class OpportunityTriggerHandler {
 		for (Account account : disconnected.values()) {
 			Decimal oldRevenue = opportunityWithDisconnectedAccountMap.get(account.Id).ExpectedRevenue;
 
-			if (account.Revenue_From_Opp__c == null) {
-				account.Revenue_From_Opp__c = 0;
-			}
+			oldRevenue = oldRevenue == null ? 0 : oldRevenue;
 
 			account.Revenue_From_Opp__c -= (oldRevenue);
 			updatedAccounts.add(account);
